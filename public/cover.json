@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "picture": "https://i.ibb.co/RhFvgXb/1.png",
+    "title": "Awesome Aroma",
+    "description": "You will definitely be a fan of the design & aroma of your coffee"
+  },
+  {
+    "id": 2,
+    "picture": "https://i.ibb.co/7GsFXZL/2.png",
+    "title": "High Quality",
+    "description": "We served the coffee to you maintaining the best quality"
+  },
+  {
+    "id": 3,
+    "picture": "https://i.ibb.co/7y6D0H8/3.png",
+    "title": "Pure Grades",
+    "description": "The coffee is made of the green coffee beans which you will love"
+  },
+  {
+    "id": 4,
+    "picture": "https://i.ibb.co/jykwcCd/4.png",
+    "title": "Proper Roasting",
+    "description": "Your coffee is brewed by first roasting the green coffee beans."
+  }
+]

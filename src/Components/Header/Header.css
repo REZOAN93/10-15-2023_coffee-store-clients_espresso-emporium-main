@@ -1,0 +1,10 @@
+#sidebar a.active {
+    color: rebeccapurple;
+    font-weight: 700;
+    background-color: none;
+  }
+.headerPart{
+    background-image: url(../../assets/Rectangle1.png);
+   background-size: cover;
+   background-position: center;
+  }
