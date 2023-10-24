@@ -1,10 +1,29 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Users = () => {
-  const user = useLoaderData();
-  const [restUsers, setrestUser] = useState(user);
+  // const loaderUser = useLoaderData();
+  // console.log(user,"this userData")
+  // useEffect(()=>{
+  //   fetch('/')
+  //   .then(res=>res.json())
+  //   .then(data=>{
+  //     console.log(data)
+  //   })
+  // },[])
+
+  const [user,setUser]=useState([])
+  useEffect(()=>{
+    axios.get('http://localhost:5000/users')
+    .then(data=>{
+      setUser(data.data)
+    })
+  },[])
+console.log(user)
+  // const [restUsers, setRestUser] = useState(user);
+  
   const handleDeleteUser = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -16,17 +35,28 @@ const Users = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/users/${id}`, {
-          method: "DELETE",
+        console.log(id)
+        axios.delete(`http://localhost:5000/users/${id}`)
+        .then(data=>{
+          console.log(data.data)
+          if (data.data.deletedCount>0) {
+            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            const remaining=user?.filter(na=>na._id!==id)
+            setUser(remaining)
+          }
         })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.deletedCount > 0) {
-              Swal.fire("Deleted!", "Your file has been deleted.", "success");
-              const remaining = restUsers.filter((na) => na._id !== id);
-              setrestUser(remaining);
-            }
-          });
+          // fetch(`http://localhost:5000/users/${id}`, {
+          //   method: "DELETE",
+          // })
+          //   .then((res) => res.json())
+          //   .then((data) => {
+          //     if (data.deletedCount > 0) {
+          //       Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          //       const remaining = user?.filter((na) => na._id !== id);
+                
+          //       (remaining);
+          //     }
+          //   });
       }
     });
   };
@@ -45,7 +75,7 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            {restUsers.map((na) => (
+            {user?.map((na) => (
               <>
                 <tr>
                   <th>{na.name}</th>

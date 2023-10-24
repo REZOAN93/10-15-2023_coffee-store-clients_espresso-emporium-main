@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
 import { AuthContext } from "../Context/AuthProvider";
+import axios from "axios";
 
 const Login = () => {
   const { signInWithEmail, signInWithGoogle } = useContext(AuthContext);
@@ -29,24 +30,28 @@ const Login = () => {
         const emailInfo = user?.email;
         const userInfoForDB = { emailInfo, userLastSign };
 
-        fetch(`http://localhost:5000/users`, {
-          method: "PUT",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(userInfoForDB),
-        })
-          .then((res) => res.json())
-          .then((data) => console.log(data));
-        // ...
+        axios.patch('http://localhost:5000/users',userInfoForDB)
+        .then(data=>console.log(data.data))
 
-        if (user) {
-          Swal.fire({
-            position: "top-center",
-            icon: "success",
-            title: "You have successfully LogIn",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        }
+
+        // fetch(`http://localhost:5000/users`, {
+        //   method: "PUT",
+        //   headers: { "content-type": "application/json" },
+        //   body: JSON.stringify(userInfoForDB),
+        // })
+        //   .then((res) => res.json())
+        //   .then((data) => console.log(data));
+        // // ...
+
+        // if (user) {
+        //   Swal.fire({
+        //     position: "top-center",
+        //     icon: "success",
+        //     title: "You have successfully LogIn",
+        //     showConfirmButton: false,
+        //     timer: 1500,
+        //   });
+        // }
         navigate(location?.state ? location.state : "/");
       })
       .catch((error) => {

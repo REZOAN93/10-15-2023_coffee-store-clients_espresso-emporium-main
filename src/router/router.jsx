@@ -9,6 +9,7 @@ import Register from "../Components/Auth/Register";
 import Profile from "../Components/Auth/Profile";
 import PrivateRoute from "../Components/Root/PrivateRoute";
 import Users from "../Components/UserDetails/Users";
+import Users2 from "../Components/UserDetails/Users2";
 
 export const router = createBrowserRouter([
   {
@@ -31,9 +32,14 @@ export const router = createBrowserRouter([
       },
       {
         path: "/users",
-        element: <PrivateRoute><Users /></PrivateRoute>,
-        loader: () => fetch("http://localhost:5000/users"),
+        element: (
+          <PrivateRoute>
+            <Users />
+          </PrivateRoute>
+        ),
+        // loader: () => fetch("http://localhost:5000/users"),
       },
+
       {
         path: "/profile",
         element: (
@@ -41,6 +47,14 @@ export const router = createBrowserRouter([
             <Profile />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/users2",
+        element: (
+          <PrivateRoute>
+            <Users2 />
+          </PrivateRoute>
+        ),  
       },
       {
         path: "/addCoffee",

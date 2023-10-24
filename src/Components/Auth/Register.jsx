@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../Context/AuthProvider";
+import axios from "axios";
 
 const Register = () => {
   const { createUserWithEmail, updateUser } = useContext(AuthContext);
@@ -37,23 +38,34 @@ const Register = () => {
         console.log(user);
         const userCreationTime = user.metadata.creationTime;
         console.log(userCreationTime);
-
         const newUser = { email, name, photoURl, userCreationTime };
-        fetch("http://localhost:5000/user", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(newUser),
-        })
-          .then((res) => res.json())
-          .then((data) => {
+        axios.post("http://localhost:5000/user", newUser).then((data) => {
+          if (data.data.insertedId) {
             Swal.fire({
-              position: "top-center",
+              position: "center",
               icon: "success",
               title: "Account is Created & Saved on DataBase",
               showConfirmButton: false,
               timer: 1500,
             });
-          });
+          }
+        });
+
+        // fetch("http://localhost:5000/user", {
+        //   method: "POST",
+        //   headers: { "content-type": "application/json" },
+        //   body: JSON.stringify(newUser),
+        // })
+        //   .then((res) => res.json())
+        //   .then((data) => {
+        //     Swal.fire({
+        //       position: "top-center",
+        //       icon: "success",
+        //       title: "Account is Created & Saved on DataBase",
+        //       showConfirmButton: false,
+        //       timer: 1500,
+        //     });
+        //   });
 
         if (user) {
           navigate(location?.state ? location.state : "/");

@@ -30,6 +30,9 @@ const Header = () => {
         <li>
           <NavLink to={"/users"}>Users</NavLink>
         </li>
+        <li>
+          <NavLink to={"/users2"}>Users2</NavLink>
+        </li>
         {user ? (
           <>
             <li>
@@ -75,12 +78,11 @@ const Header = () => {
               {/* <img className=" h-5 lg:h-12" src={img1} alt="" /> */}
             </a>
             <div className="hidden lg:flex pe-10">
-            <ul className="text-white text-xl px-4">{navData}</ul>
-          </div>
+              <ul className="text-white text-xl px-4">{navData}</ul>
+            </div>
           </div>
         </div>
         <div className="navbar-end">
-          
           <div className="lg:px-2 text-center hidden lg:block">
             {user ? (
               <p className="truncate text-base font-bold text-white">
